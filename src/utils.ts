@@ -1,3 +1,5 @@
+import { Property } from "./types";
+
 /**
  * Returns a safe key to use to access an object property or array
  * item, keys starting with "$" will be returned as an integer,
@@ -64,8 +66,20 @@ export function getValue<T>(root: any, path: string[], defaultValue?: T) {
  * Input: ["property", "subProperty"]
  * Output: ["property", "schema", "subProperty", "schema"]
  */
-export function pushSchemaKeysIntoPath(path: string[]) {
+export function getSchemaPath(path: string[]) {
   return path.reduce<string[]>((pathWithSchemaKeys, key) => {
+    if (isIndexKey(key)) {
+      return pathWithSchemaKeys;
+    }
+
     return pathWithSchemaKeys.concat([key, 'schema']);
   }, []);
+}
+
+export function isArrayOfPrimitives(property: Property) {
+  return property.type === 'array' && property.schema === undefined;
+}
+
+export function isArrayOfObjects(property: Property) {
+  return property.type === 'array' && property.schema !== undefined;
 }

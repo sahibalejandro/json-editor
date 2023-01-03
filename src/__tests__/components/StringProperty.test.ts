@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event';
 import StringProperty from '../../components/StringProperty.vue'
 
 const baseProps = {
-  name: 'test',
   value: '',
 };
 

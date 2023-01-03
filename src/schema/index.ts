@@ -20,6 +20,19 @@ const schema: Schema = {
     type: 'array',
   },
 
+  favorites: {
+    type: 'array',
+    schemaName: 'Favorite',
+    schema: {
+      product_id: {
+        type: 'string',
+      },
+      stars: {
+        type: 'string',
+      }
+    },
+  }
+
 };
 
 export default schema;

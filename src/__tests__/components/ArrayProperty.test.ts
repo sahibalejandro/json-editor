@@ -5,8 +5,6 @@ import ArrayProperty from '../../components/ArrayProperty.vue';
 
 const baseProps = {
   array: [],
-  property: {},
-  name: 'test',
 };
 
 describe('ArrayProperty Component', () => {
@@ -102,7 +100,7 @@ describe('ArrayProperty Component', () => {
     expect(component.emitted('onUpdateItem').pop()).toEqual([targetItemIndex, newValue]);
   });
 
-  it('emits onDeleteItem when clicking on Delete button', async () => {
+  it('emits onDeleteItem when user clicks on Delete button', async () => {
     const user = userEvent.setup();
     const indexOfItemToDelete = 1;
     const component = render(ArrayProperty, {
@@ -115,11 +113,12 @@ describe('ArrayProperty Component', () => {
 
     await user.click(deleteItemButton);
 
+    expect(component.emitted('onDeleteItem')).toBeTruthy();
     expect(component.emitted('onDeleteItem').length).toBe(1);
     expect(component.emitted('onDeleteItem')[0]).toEqual([indexOfItemToDelete]);
   });
 
-  it.only('emits onDeleteAllItems when clicking on Delete All button', async () => {
+  it('emits onDeleteAllItems when clicking on Delete All button', async () => {
     const user = userEvent.setup();
     const component = render(ArrayProperty, {
       props: {

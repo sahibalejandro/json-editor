@@ -3,7 +3,7 @@ export interface Schema {
 }
 
 export interface Property {
-  type: 'array' | 'string' | 'schema';
+  type: 'array' | 'number' | 'schema' | 'string';
   schema?: Schema;
   schemaName?: string;
 }

@@ -1,5 +1,4 @@
 <template>
-  {{ props.name }}:
   <div>
     Items added: <span data-testid="array-length">{{ props.array?.length || 0 }}</span>
   </div>
@@ -43,7 +42,6 @@
 import { ref } from 'vue';
 
 interface Props {
-  name: string;
   array: string[];
 }
 

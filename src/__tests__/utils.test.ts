@@ -1,4 +1,11 @@
-import { getValue, setValue, pushSchemaKeysIntoPath } from '../utils';
+import type { Property } from '../types';
+import {
+  getValue,
+  setValue,
+  getSchemaPath,
+  isArrayOfObjects,
+  isArrayOfPrimitives,
+} from '../utils';
 
 describe('Adding Values', () => {
   it('adds a value to the root', () => {
@@ -298,11 +305,30 @@ describe('Reading Values', () => {
 });
 
 describe('Path Manipulation', () => {
-  it('push schema keys into path', () => {
-    const path = ['one', 'two'];
+  it('generates schema path based on given path', () => {
+    expect(getSchemaPath(['one', 'two']))
+      .toEqual(['one', 'schema', 'two', 'schema']);
 
-    const pathWithSchemaKeys = pushSchemaKeysIntoPath(path);
+    expect(getSchemaPath(['one', '$0', 'two', '$2']))
+      .toEqual(['one', 'schema', 'two', 'schema']);
+  });
+});
 
-    expect(pathWithSchemaKeys).toEqual(['one', 'schema', 'two', 'schema']);
+describe('Misc Utils', () => {
+  it('returns true if the given property describes an array of primitives', () => {
+    const property: Property = {
+      type: 'array',
+    };
+
+    expect(isArrayOfPrimitives(property));
+  });
+
+  it('returns true if the given property describes an array of objects', () => {
+    const property: Property = {
+      type: 'array',
+      schema: {}
+    };
+
+    expect(isArrayOfObjects(property));
   });
 });

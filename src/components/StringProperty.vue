@@ -1,5 +1,4 @@
 <template>
-  {{ props.name }}:
   <input
     type="text"
     data-testid="input"
@@ -14,7 +13,6 @@ interface Emits {
 }
 
 interface Props {
-  name: string;
   value: string;
 } 
 
