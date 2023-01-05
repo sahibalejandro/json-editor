@@ -18,6 +18,16 @@
       &times;
     </button>
   </div>
+
+  <button
+    type="button"
+    v-if="props.array.length > 0"
+    data-testid="delete-all-button"
+    @click="$emit('onDeleteAllItems')"
+  >
+    Delete all
+  </button>
+
   <button
     type="button"
     @click="$emit('onSetSchema', -1)"
@@ -31,6 +41,7 @@
 import { Property } from '../types';
 
 interface Emits {
+  (event: 'onDeleteAllItems'): void;
   (event: 'onSetSchema', index: number): void;
   (event: 'onDeleteItem', index: number): void;
 }

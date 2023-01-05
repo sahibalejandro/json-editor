@@ -126,6 +126,7 @@ function handleOnUpdateProperty(propertyName: string, value: string) {
     <ObjectArrayProperty v-if="isArrayOfObjects(property)"
       :property="property"
       :array="getDataValueFor(name as string, [])"
+      @on-delete-all-items="handleOnDeleteAllItems(name as string)"
       @on-set-schema="(itemIndex) => handleOnSetSchema(name as string, itemIndex)"
       @on-delete-item="(itemIndex) => handleOnDeleteItem(name as string, itemIndex)"
     />

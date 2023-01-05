@@ -68,6 +68,36 @@ describe('ObjectArrayProperty Component', () => {
     expect(addNewItemButton.textContent!.includes('FooBarSchema')).toBe(true);
   });
 
+  it('displays a button to delete all items when the array is not empty', async () => {
+    const component = render(ObjectArrayProperty, {
+      props: {
+        ...baseProps,
+      }
+    });
+
+    expect(component.queryByTestId('delete-all-button')).toBeNull();
+
+    await component.rerender({ ...baseProps, array: [{}] });
+
+    expect(component.getByTestId('delete-all-button')).toBeTruthy();
+  });
+
+  it('emits onDeleteAllItems when clicking on Delete All button', async () => {
+    const user = userEvent.setup();
+    const component = render(ObjectArrayProperty, {
+      props: {
+        ...baseProps,
+        array: [{}, {}],
+      }
+    });
+
+    const deleteAllButton = component.getByTestId('delete-all-button');
+    await user.click(deleteAllButton);
+
+    expect(component.emitted('onDeleteAllItems')).toBeTruthy();
+    expect(component.emitted('onDeleteAllItems').length).toBe(1);
+  });
+
   it('emits onSetSchema when user clicks on Add New Item button', async () => {
     const user = userEvent.setup();
     const component = render(ObjectArrayProperty, { props: { ...baseProps } });

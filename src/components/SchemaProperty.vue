@@ -1,5 +1,5 @@
 <template>
-  <button type="button" @click="emit('onPushToPath')">Add {{ property.schemaName }}</button>
+  <button type="button" @click="emit('onPushToPath')">Edit {{ property.schemaName }}</button>
 </template>
 
 <script setup lang="ts">
