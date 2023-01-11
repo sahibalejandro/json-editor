@@ -36,7 +36,7 @@ function backToRoot() {
 }
 
 function getDataValueFor<T>(key: string, defaultValue: T) {
-  return getValue<T>(data, [...path, key as string], defaultValue);
+  return getValue<T>(data, [...path, key], defaultValue);
 }
 
 /**
