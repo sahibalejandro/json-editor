@@ -6,7 +6,6 @@ specifiers:
   '@testing-library/vue': ^6.6.1
   '@vitejs/plugin-vue': ^4.0.0
   happy-dom: ^8.1.1
-  pinia: ^2.0.28
   typescript: ^4.9.3
   vite: ^4.0.0
   vitest: ^0.26.2
@@ -22,7 +21,6 @@ devDependencies:
   '@testing-library/vue': 6.6.1_vue@3.2.45
   '@vitejs/plugin-vue': 4.0.0_vite@4.0.3+vue@3.2.45
   happy-dom: 8.1.1
-  pinia: 2.0.28_prq2uz4lho2pwp6irk4cfkrxwu
   typescript: 4.9.4
   vite: 4.0.3
   vitest: 0.26.2_happy-dom@8.1.1
@@ -502,10 +500,6 @@ packages:
     dependencies:
       '@vue/compiler-dom': 3.2.45
       '@vue/shared': 3.2.45
-
-  /@vue/devtools-api/6.4.5:
-    resolution: {integrity: sha512-JD5fcdIuFxU4fQyXUu3w2KpAJHzTVdN+p4iOX2lMWSHMOoQdMAcpFLZzm9Z/2nmsoZ1a96QEhZ26e50xLBsgOQ==}
-    dev: true
 
   /@vue/reactivity-transform/3.2.45:
     resolution: {integrity: sha512-BHVmzYAvM7vcU5WmuYqXpwaBHjsS8T63jlKGWVtHxAHIoMIlmaMyurUSEs1Zcg46M4AYT5MtB1U274/2aNzjJQ==}
@@ -1252,24 +1246,6 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
-  /pinia/2.0.28_prq2uz4lho2pwp6irk4cfkrxwu:
-    resolution: {integrity: sha512-YClq9DkqCblq9rlyUual7ezMu/iICWdBtfJrDt4oWU9Zxpijyz7xB2xTwx57DaBQ96UGvvTMORzALr+iO5PVMw==}
-    peerDependencies:
-      '@vue/composition-api': ^1.4.0
-      typescript: '>=4.4.4'
-      vue: ^2.6.14 || ^3.2.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-      typescript:
-        optional: true
-    dependencies:
-      '@vue/devtools-api': 6.4.5
-      typescript: 4.9.4
-      vue: 3.2.45
-      vue-demi: 0.13.11_vue@3.2.45
-    dev: true
-
   /pkg-types/1.0.1:
     resolution: {integrity: sha512-jHv9HB+Ho7dj6ItwppRDDl0iZRYBD0jsakHXtFgoLr+cHSF6xC+QL54sJmWxyGxOLYSHm0afhXhXcQDQqH9z8g==}
     dependencies:
@@ -1602,21 +1578,6 @@ packages:
       - sugarss
       - supports-color
       - terser
-    dev: true
-
-  /vue-demi/0.13.11_vue@3.2.45:
-    resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
-    engines: {node: '>=12'}
-    hasBin: true
-    requiresBuild: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^3.0.0-0 || ^2.6.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-    dependencies:
-      vue: 3.2.45
     dev: true
 
   /vue-template-compiler/2.7.14:
