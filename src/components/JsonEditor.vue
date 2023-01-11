@@ -35,6 +35,10 @@ function backToRoot() {
   path.length = 0;
 }
 
+/**
+ * Get the value of the given key within the current path, if
+ * the property does not exists it will return defaultValue.
+ */
 function getDataValueFor<T>(key: string, defaultValue: T) {
   return getValue<T>(data, [...path, key], defaultValue);
 }
@@ -91,18 +95,34 @@ function handleOnAddItem(propertyName: string, item: string) {
   array.push(item);
 }
 
+/**
+ * Handle the event to update the item at the given itemIndex from the array
+ * under the given propertyName in the object at the current path.
+ */
 function handleOnUpdateItem(propertyName: string, itemIndex: number, value: string) {
   getValue<string[]>(data, [...path, propertyName])?.splice(itemIndex, 1, value);
 }
 
+/**
+ * handles the event to delete an item at the specified itemIndex from the
+ * array under the given propertyName in the object at the current path.
+ */
 function handleOnDeleteItem(propertyName: string, itemIndex: number) {
   getValue<unknown[]>(data, [...path, propertyName])?.splice(itemIndex, 1);
 }
 
+/**
+ * Handles the event to clear all the items in the array under the given
+ * propertyName in the object at the current path.
+ */
 function handleOnDeleteAllItems(propertyName: string) {
   setValue(data, [], [...path, propertyName]);
 }
 
+/**
+ * Handle the event to update the value under the given propertyName in
+ * the object at the current path.
+ */
 function handleOnUpdateProperty(propertyName: string, value: string) {
   setValue(data, value, [...path, propertyName]);
 }
