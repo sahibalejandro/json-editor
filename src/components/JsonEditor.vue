@@ -46,23 +46,31 @@ function handlePushToPath(key: string) {
   path.push(key);
 }
 
-function handleOnSetSchema(propertyName: string, itemIndex: number) {
+/**
+ * Handle the event to set the schema for an item in an array of objects.
+ */
+function handleOnSetItemSchema(propertyName: string, itemIndex: number) {
   let indexPath = itemIndex;
   const propertyPath = [...path, propertyName];
   let array = getValue<any[]>(data, propertyPath);
 
+  // The first time this schema is set, the array will not
+  // exists in the data object and we need to create it.
   if (array === undefined) {
     array = [];
     setValue(data, array, propertyPath);
   }
 
+  // When indexPath is < 0 it means we will set the schema for adding
+  // a new item at the end of the array, we need to push this new
+  // object into the current array in order to mutate it.
   if (indexPath < 0) {
     array.push({});
     indexPath = array.length - 1;
   }
 
-  path.push(propertyName);
-  path.push(`\$${indexPath}`);
+  handlePushToPath(propertyName);
+  handlePushToPath(`\$${indexPath}`);
 }
 
 /**
@@ -127,8 +135,8 @@ function handleOnUpdateProperty(propertyName: string, value: string) {
       :property="property"
       :array="getDataValueFor(name as string, [])"
       @on-delete-all-items="handleOnDeleteAllItems(name as string)"
-      @on-set-schema="(itemIndex) => handleOnSetSchema(name as string, itemIndex)"
       @on-delete-item="(itemIndex) => handleOnDeleteItem(name as string, itemIndex)"
+      @on-set-item-schema="(itemIndex) => handleOnSetItemSchema(name as string, itemIndex)"
     />
 
     <SchemaProperty

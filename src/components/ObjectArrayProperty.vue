@@ -5,7 +5,7 @@
   <div v-for="(_item, index) in props.array">
     <button
       type="button"
-      @click="$emit('onSetSchema', index)"
+      @click="$emit('onSetItemSchema', index)"
       :data-testid="`item-${index}-edit-button`"
     >
       Edit {{ props.property.schemaName }} #{{ index + 1 }}
@@ -30,8 +30,8 @@
 
   <button
     type="button"
-    @click="$emit('onSetSchema', -1)"
     data-testid="add-new-item-button"
+    @click="$emit('onSetItemSchema', -1)"
   >
     Add new {{ props.property.schemaName }}
   </button>
@@ -42,8 +42,8 @@ import { Property } from '../types';
 
 interface Emits {
   (event: 'onDeleteAllItems'): void;
-  (event: 'onSetSchema', index: number): void;
   (event: 'onDeleteItem', index: number): void;
+  (event: 'onSetItemSchema', index: number): void;
 }
 
 interface Props {

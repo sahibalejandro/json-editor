@@ -98,19 +98,19 @@ describe('ObjectArrayProperty Component', () => {
     expect(component.emitted('onDeleteAllItems').length).toBe(1);
   });
 
-  it('emits onSetSchema when user clicks on Add New Item button', async () => {
+  it('emits onSetItemSchema when user clicks on Add New Item button', async () => {
     const user = userEvent.setup();
     const component = render(ObjectArrayProperty, { props: { ...baseProps } });
     const addNewItemButton = component.getByTestId('add-new-item-button');
 
     await user.click(addNewItemButton);
 
-    expect(component.emitted('onSetSchema')).toBeTruthy();
-    expect(component.emitted('onSetSchema').length).toBe(1);
-    expect(component.emitted('onSetSchema')[0]).toEqual([-1]);
+    expect(component.emitted('onSetItemSchema')).toBeTruthy();
+    expect(component.emitted('onSetItemSchema').length).toBe(1);
+    expect(component.emitted('onSetItemSchema')[0]).toEqual([-1]);
   });
 
-  it('emits onSetSchema when user clicks on Edit Item button', async () => {
+  it('emits onSetItemSchema when user clicks on Edit Item button', async () => {
     const user = userEvent.setup();
     const component = render(ObjectArrayProperty, {
       props: {
@@ -122,9 +122,9 @@ describe('ObjectArrayProperty Component', () => {
 
     await user.click(editItem1Button);
 
-    expect(component.emitted('onSetSchema')).toBeTruthy();
-    expect(component.emitted('onSetSchema').length).toBe(1);
-    expect(component.emitted('onSetSchema')[0]).toEqual([1]);
+    expect(component.emitted('onSetItemSchema')).toBeTruthy();
+    expect(component.emitted('onSetItemSchema').length).toBe(1);
+    expect(component.emitted('onSetItemSchema')[0]).toEqual([1]);
   });
 
   it('emits onDeleteItem when user clicks on Delete button', async () => {
