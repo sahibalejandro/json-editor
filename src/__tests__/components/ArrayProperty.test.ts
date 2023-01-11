@@ -86,9 +86,9 @@ describe('ArrayProperty Component', () => {
         array: ['', '']
       },
     });
-    const targetItemIndex = 1;
+    const targetIndex = 1;
     const newValue = 'new value';
-    const itemInput = component.getByTestId(`item-${targetItemIndex}-input`);
+    const itemInput = component.getByTestId(`item-${targetIndex}-input`);
 
     await user.click(itemInput);
     await user.keyboard(newValue);
@@ -97,7 +97,7 @@ describe('ArrayProperty Component', () => {
     // Number of events must match the number of typed letters
     expect(component.emitted('onUpdateItem').length).toBe(newValue.length);
     // Last event must have received the target index and the full new value
-    expect(component.emitted('onUpdateItem').pop()).toEqual([targetItemIndex, newValue]);
+    expect(component.emitted('onUpdateItem').pop()).toEqual([targetIndex, newValue]);
   });
 
   it('emits onDeleteItem when user clicks on Delete button', async () => {

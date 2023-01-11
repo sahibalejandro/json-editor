@@ -48,8 +48,8 @@ interface Props {
 interface Emits {
   (event: 'onDeleteAllItems'): void,
   (event: 'onAddItem', value: string): void;
-  (event: 'onDeleteItem', itemIndex: number): void;
-  (event: 'onUpdateItem', itemIndex: number, value: string): void;
+  (event: 'onDeleteItem', index: number): void;
+  (event: 'onUpdateItem', index: number, value: string): void;
 }
 
 const newItemInputValue = ref('');

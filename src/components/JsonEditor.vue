@@ -53,9 +53,9 @@ function handlePushToPath(key: string) {
 /**
  * Handle the event to set the schema for an item in an array of objects.
  */
-function handleOnSetItemSchema(propertyName: string, itemIndex: number) {
-  let indexPath = itemIndex;
-  const propertyPath = [...path, propertyName];
+function handleOnSetItemSchema(key: string, index: number) {
+  let indexPath = index;
+  const propertyPath = [...path, key];
   let array = getValue<any[]>(data, propertyPath);
 
   // The first time this schema is set, the array will not
@@ -73,16 +73,16 @@ function handleOnSetItemSchema(propertyName: string, itemIndex: number) {
     indexPath = array.length - 1;
   }
 
-  handlePushToPath(propertyName);
+  handlePushToPath(key);
   handlePushToPath(`\$${indexPath}`);
 }
 
 /**
  * Handle the event fired to add the given item to the array specified
- * by propertyName within the current data's path.
+ * by key within the current data's path.
  */
-function handleOnAddItem(propertyName: string, item: string) {
-  const propertyPath = [...path, propertyName];
+function handleOnAddItem(key: string, item: string) {
+  const propertyPath = [...path, key];
   let array = getValue<string[]>(data, propertyPath);
 
   // Create a new array and add it to the
@@ -96,35 +96,35 @@ function handleOnAddItem(propertyName: string, item: string) {
 }
 
 /**
- * Handle the event to update the item at the given itemIndex from the array
- * under the given propertyName in the object at the current path.
+ * Handle the event to update the item at the given index from the array
+ * under the given key in the object at the current path.
  */
-function handleOnUpdateItem(propertyName: string, itemIndex: number, value: string) {
-  getValue<string[]>(data, [...path, propertyName])?.splice(itemIndex, 1, value);
+function handleOnUpdateItem(key: string, index: number, value: string) {
+  getValue<string[]>(data, [...path, key])?.splice(index, 1, value);
 }
 
 /**
- * handles the event to delete an item at the specified itemIndex from the
- * array under the given propertyName in the object at the current path.
+ * handles the event to delete an item at the specified index from the
+ * array under the given key in the object at the current path.
  */
-function handleOnDeleteItem(propertyName: string, itemIndex: number) {
-  getValue<unknown[]>(data, [...path, propertyName])?.splice(itemIndex, 1);
+function handleOnDeleteItem(key: string, index: number) {
+  getValue<unknown[]>(data, [...path, key])?.splice(index, 1);
 }
 
 /**
  * Handles the event to clear all the items in the array under the given
- * propertyName in the object at the current path.
+ * key in the object at the current path.
  */
-function handleOnDeleteAllItems(propertyName: string) {
-  setValue(data, [], [...path, propertyName]);
+function handleOnDeleteAllItems(key: string) {
+  setValue(data, [], [...path, key]);
 }
 
 /**
- * Handle the event to update the value under the given propertyName in
+ * Handle the event to update the value under the given key in
  * the object at the current path.
  */
-function handleOnUpdateProperty(propertyName: string, value: string) {
-  setValue(data, value, [...path, propertyName]);
+function handleOnUpdateProperty(key: string, value: string) {
+  setValue(data, value, [...path, key]);
 }
 </script>
 
@@ -136,32 +136,32 @@ function handleOnUpdateProperty(propertyName: string, value: string) {
 
   <hr />
 
-  <div v-for="(property, name) in currentSchema" :key="name">
-    {{ name }}:
+  <div v-for="(property, key) in currentSchema" :key="key">
+    {{ key }}:
     <StringProperty v-if="property.type === 'string'"
-      :value="getDataValueFor(name as string, '')"
-      @on-update="(value) => handleOnUpdateProperty(name as string, value)"
+      :value="getDataValueFor(key as string, '')"
+      @on-update="(value) => handleOnUpdateProperty(key as string, value)"
     />
 
     <ArrayProperty v-if="isArrayOfPrimitives(property)"
-      :array="getDataValueFor(name as string, [])"
-      @on-delete-all-items="handleOnDeleteAllItems(name as string)"
-      @on-add-item="(value) => handleOnAddItem(name as string, value)"
-      @on-delete-item="(itemIndex) => handleOnDeleteItem(name as string, itemIndex)"
-      @on-update-item="(itemIndex, value) => handleOnUpdateItem(name as string, itemIndex, value)"
+      :array="getDataValueFor(key as string, [])"
+      @on-delete-all-items="handleOnDeleteAllItems(key as string)"
+      @on-add-item="(value) => handleOnAddItem(key as string, value)"
+      @on-delete-item="(index) => handleOnDeleteItem(key as string, index)"
+      @on-update-item="(index, value) => handleOnUpdateItem(key as string, index, value)"
     />
 
     <ObjectArrayProperty v-if="isArrayOfObjects(property)"
       :property="property"
-      :array="getDataValueFor(name as string, [])"
-      @on-delete-all-items="handleOnDeleteAllItems(name as string)"
-      @on-delete-item="(itemIndex) => handleOnDeleteItem(name as string, itemIndex)"
-      @on-set-item-schema="(itemIndex) => handleOnSetItemSchema(name as string, itemIndex)"
+      :array="getDataValueFor(key as string, [])"
+      @on-delete-all-items="handleOnDeleteAllItems(key as string)"
+      @on-delete-item="(index) => handleOnDeleteItem(key as string, index)"
+      @on-set-item-schema="(index) => handleOnSetItemSchema(key as string, index)"
     />
 
     <SchemaProperty
       v-if="property.type === 'schema'"
-      :property="property" @onPushToPath="handlePushToPath(name as string)"
+      :property="property" @onPushToPath="handlePushToPath(key as string)"
     />
   </div>
 
