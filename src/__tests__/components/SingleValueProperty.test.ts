@@ -10,7 +10,7 @@ const baseProps = {
   }
 };
 
-describe('StringProperty Component', () => {
+describe('SingleValueProperty Component', () => {
   it('displays the given value in the input field', () => {
     const component = render(SingleValueProperty, {
       props: {
