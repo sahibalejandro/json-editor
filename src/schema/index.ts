@@ -43,6 +43,10 @@ const schema: Schema = {
         type: 'number',
       }
     },
+  },
+
+  body: {
+    type: 'text',
   }
 
 };

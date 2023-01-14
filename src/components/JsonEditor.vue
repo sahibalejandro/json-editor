@@ -2,6 +2,7 @@
 import { computed, reactive } from 'vue';
 
 import { Breadcrumb, Schema } from '../types';
+import TextProperty from './TextProperty.vue';
 import ArrayProperty from './ArrayProperty.vue';
 import SchemaProperty from './SchemaProperty.vue';
 import ObjectArrayProperty from './ObjectArrayProperty.vue';
@@ -177,6 +178,11 @@ function handleOnUpdateProperty(key: string, value: string | number) {
       :property="property"
       :value="getDataValueFor(key as string, '')"
       @on-update="(value) => handleOnUpdateProperty(key as string, value)"
+    />
+
+    <TextProperty v-if="property.type === 'text'"
+      :value="getDataValueFor(key as string, '')"
+      @on-input="(value) => handleOnUpdateProperty(key as string, value)"
     />
 
     <ArrayProperty v-if="isArrayOfPrimitives(property)"
