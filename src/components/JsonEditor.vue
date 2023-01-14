@@ -4,8 +4,8 @@ import { computed, reactive } from 'vue';
 import { Breadcrumb, Schema } from '../types';
 import ArrayProperty from './ArrayProperty.vue';
 import SchemaProperty from './SchemaProperty.vue';
-import StringProperty from './StringProperty.vue';
 import ObjectArrayProperty from './ObjectArrayProperty.vue';
+import SingleValueProperty from './SingleValueProperty.vue';
 
 import {
   getValue,
@@ -152,7 +152,7 @@ function handleOnDeleteAllItems(key: string) {
  * Handle the event to update the value under the given key in
  * the object at the current path.
  */
-function handleOnUpdateProperty(key: string, value: string) {
+function handleOnUpdateProperty(key: string, value: string | number) {
   setValue(data, value, [...path, key]);
 }
 </script>
@@ -173,7 +173,8 @@ function handleOnUpdateProperty(key: string, value: string) {
 
   <div v-for="(property, key) in currentSchema" :key="key">
     {{ key }}:
-    <StringProperty v-if="property.type === 'string'"
+    <SingleValueProperty v-if="property.type === 'string' || property.type === 'number'"
+      :property="property"
       :value="getDataValueFor(key as string, '')"
       @on-update="(value) => handleOnUpdateProperty(key as string, value)"
     />

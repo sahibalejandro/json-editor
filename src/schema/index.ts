@@ -37,10 +37,10 @@ const schema: Schema = {
     schemaName: 'Favorite',
     schema: {
       product_id: {
-        type: 'string',
+        type: 'number',
       },
       stars: {
-        type: 'string',
+        type: 'number',
       }
     },
   }
