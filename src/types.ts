@@ -7,3 +7,8 @@ export interface Property {
   schema?: Schema;
   schemaName?: string;
 }
+
+export interface Breadcrumb {
+  key: string;
+  index: number;
+}

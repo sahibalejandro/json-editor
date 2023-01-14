@@ -13,6 +13,18 @@ const schema: Schema = {
       phone: {
         type: 'string',
       },
+      userAccount: {
+        type: 'schema',
+        schemaName: 'UserAccount',
+        schema: {
+          name: {
+            type: 'string',
+          },
+          email: {
+            type: 'string',
+          }
+        }
+      }
     },
   },
 

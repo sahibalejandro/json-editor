@@ -15,7 +15,7 @@ function safeKey(key: string): string | number {
  * starts with "$", eg: "$5" which means it is the key for
  * the item in the 5th position of an array.
  */
-function isIndexKey(key: string) {
+export function isIndexKey(key: string) {
   return key && key.startsWith('$');
 }
 

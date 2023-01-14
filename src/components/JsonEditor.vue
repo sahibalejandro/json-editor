@@ -1,39 +1,53 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
 
-import { Schema } from '../types';
-import {
-  getValue,
-  setValue,
-  getSchemaPath,
-  isArrayOfObjects,
-  isArrayOfPrimitives,
-} from '../utils';
-
+import { Breadcrumb, Schema } from '../types';
 import ArrayProperty from './ArrayProperty.vue';
 import SchemaProperty from './SchemaProperty.vue';
 import StringProperty from './StringProperty.vue';
 import ObjectArrayProperty from './ObjectArrayProperty.vue';
 
+import {
+  getValue,
+  setValue,
+  isIndexKey,
+  getSchemaPath,
+  isArrayOfObjects,
+  isArrayOfPrimitives,
+} from '../utils';
+
 const data = reactive({});
 const path = reactive<string[]>([]);
 const props = defineProps<{ schema: Schema }>();
 
+/**
+ * Returns an array of keys from the current path including the schema keys.
+ */
 const schemaPath = computed(() => {
   return (path.length === 0) ? [] : getSchemaPath(path);
 });
 
+/**
+ * Returns the schema that is being rendered as form.
+ */
 const currentSchema = computed(() => {
   return getValue<Schema>(props.schema, schemaPath.value, {});
 });
 
 /**
- * Reset the path to an empty array, it means the root schema will
- * be displayed.
+ * Returns an array of Breadcrumb objects where its index
+ * property matches their index within the current path.
+ * Index Keys within path are ignored.
  */
-function backToRoot() {
-  path.length = 0;
-}
+const breadcrumbs = computed(() => {
+  return ['root', ...path].reduce((result, key, index) => {
+    if (!isIndexKey(key)) {
+      result.push({ key, index });
+    }
+
+    return result;
+  }, [] as Breadcrumb[]);
+});
 
 /**
  * Get the value of the given key within the current path, if
@@ -41,6 +55,21 @@ function backToRoot() {
  */
 function getDataValueFor<T>(key: string, defaultValue: T) {
   return getValue<T>(data, [...path, key], defaultValue);
+}
+
+/**
+ * Back to the specified breadcrumb index.
+ */
+function backTo(index: number) {
+  path.length = index;
+}
+
+/**
+ * Back one breadcrumb position.
+ */
+function back() {
+  const previousBreadcrumb = breadcrumbs.value[breadcrumbs.value.length - 2];
+  backTo(previousBreadcrumb.index);
 }
 
 /**
@@ -130,11 +159,17 @@ function handleOnUpdateProperty(key: string, value: string) {
 
 <template>
   <div>
-    Json Editor - current path:
-    <a @click.prevent="backToRoot()" href="#">root</a>.{{ path.join('.') }}
+    <template v-for="(breadcrumb, index) in breadcrumbs">
+      <a href="#" @click.prevent="backTo(breadcrumb.index)">
+        {{ breadcrumb.key }}
+      </a>
+      <span v-if="index < (breadcrumbs.length - 1)"> / </span>
+    </template>
   </div>
 
   <hr />
+
+  <button v-if="breadcrumbs.length > 1" type="button" @click="back()">&larr; Back</button>
 
   <div v-for="(property, key) in currentSchema" :key="key">
     {{ key }}:
@@ -159,8 +194,7 @@ function handleOnUpdateProperty(key: string, value: string) {
       @on-set-item-schema="(index) => handleOnSetItemSchema(key as string, index)"
     />
 
-    <SchemaProperty
-      v-if="property.type === 'schema'"
+    <SchemaProperty v-if="property.type === 'schema'"
       :property="property" @onPushToPath="handlePushToPath(key as string)"
     />
   </div>
