@@ -8,11 +8,11 @@
       type="text"
       :value="value"
       :data-testid="`item-${index}-input`"
-      @input="$emit('onUpdateItem', index, ($event.target as HTMLInputElement).value)"
+      @input="$emit('updateItem', index, ($event.target as HTMLInputElement).value)"
     />
     <button
       type="button"
-      @click="$emit('onDeleteItem', index)"
+      @click="$emit('deleteItem', index)"
       :data-testid="`delete-item-${index}-button`"
     >
       &times;
@@ -23,7 +23,7 @@
     type="button"
     v-if="props.array.length > 0"
     data-testid="delete-all-button"
-    @click="$emit('onDeleteAllItems')"
+    @click="$emit('deleteAllItems')"
   >
     Delete all
   </button>
@@ -46,10 +46,10 @@ interface Props {
 }
 
 interface Emits {
-  (event: 'onDeleteAllItems'): void,
-  (event: 'onAddItem', value: string): void;
-  (event: 'onDeleteItem', index: number): void;
-  (event: 'onUpdateItem', index: number, value: string): void;
+  (event: 'deleteAllItems'): void,
+  (event: 'addItem', value: string): void;
+  (event: 'deleteItem', index: number): void;
+  (event: 'updateItem', index: number, value: string): void;
 }
 
 const newItemInputValue = ref('');
@@ -60,7 +60,7 @@ function handleNewItemOnKeypress(e: KeyboardEvent) {
   const value = (e.target as HTMLInputElement).value.trim();
 
   if (e.key === 'Enter' && value !== '') {
-    emit('onAddItem', value);
+    emit('addItem', value);
     newItemInputValue.value = '';
   }
 }

@@ -187,10 +187,10 @@ function handleOnUpdateProperty(key: string, value: string | number) {
 
     <ArrayProperty v-if="isArrayOfPrimitives(property)"
       :array="getDataValueFor(key as string, [])"
-      @on-delete-all-items="handleOnDeleteAllItems(key as string)"
-      @on-add-item="(value) => handleOnAddItem(key as string, value)"
-      @on-delete-item="(index) => handleOnDeleteItem(key as string, index)"
-      @on-update-item="(index, value) => handleOnUpdateItem(key as string, index, value)"
+      @delete-all-items="handleOnDeleteAllItems(key as string)"
+      @add-item="(value) => handleOnAddItem(key as string, value)"
+      @delete-item="(index) => handleOnDeleteItem(key as string, index)"
+      @update-item="(index, value) => handleOnUpdateItem(key as string, index, value)"
     />
 
     <ObjectArrayProperty v-if="isArrayOfObjects(property)"

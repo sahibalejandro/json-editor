@@ -41,7 +41,7 @@ describe('ArrayProperty Component', () => {
     expect((component.getByTestId('item-1-input') as HTMLInputElement).value).toBe('bar');
   });
 
-  it('emits onAddItem when Enter key is pressed and the New Item Input has value', async () => {
+  it('emits addItem when Enter key is pressed and the New Item Input has value', async () => {
     const user = userEvent.setup();
     const component = render(ArrayProperty, { props: { ...baseProps } });
     const newItemInput = component.getByTestId('new-item-input');
@@ -49,11 +49,11 @@ describe('ArrayProperty Component', () => {
     await user.type(newItemInput, 'some value');
     await user.keyboard('[Enter]');
 
-    expect(component.emitted('onAddItem').length, 'Emit onAddItem').toBe(1);
-    expect(component.emitted('onAddItem')[0], 'Emit correct value').toEqual(['some value']);
+    expect(component.emitted('addItem').length, 'Emit addItem').toBe(1);
+    expect(component.emitted('addItem')[0], 'Emit correct value').toEqual(['some value']);
   });
 
-  it('does not emit onAddItem when Enter key is pressed and the New Item Input is empty', async () => {
+  it('does not emit addItem when Enter key is pressed and the New Item Input is empty', async () => {
     const user = userEvent.setup();
     const component = render(ArrayProperty, { props: { ...baseProps } });
     const newItemInput = component.getByTestId('new-item-input');
@@ -61,7 +61,7 @@ describe('ArrayProperty Component', () => {
     await user.click(newItemInput);
     await user.keyboard('[Enter]');
 
-    expect(component.emitted('onAddItem')).toBeFalsy();
+    expect(component.emitted('addItem')).toBeFalsy();
   });
 
   it('clears New Item Input after adding an item', async () => {
@@ -78,7 +78,7 @@ describe('ArrayProperty Component', () => {
     expect(newItemInput.value).toBe('');
   });
 
-  it('emits onUpdateItem when the input of an item changes', async () => {
+  it('emits updateItem when the input of an item changes', async () => {
     const user = userEvent.setup();
     const component = render(ArrayProperty, {
       props: {
@@ -93,14 +93,14 @@ describe('ArrayProperty Component', () => {
     await user.click(itemInput);
     await user.keyboard(newValue);
 
-    expect(component.emitted('onUpdateItem')).toBeTruthy();
+    expect(component.emitted('updateItem')).toBeTruthy();
     // Number of events must match the number of typed letters
-    expect(component.emitted('onUpdateItem').length).toBe(newValue.length);
+    expect(component.emitted('updateItem').length).toBe(newValue.length);
     // Last event must have received the target index and the full new value
-    expect(component.emitted('onUpdateItem').pop()).toEqual([targetIndex, newValue]);
+    expect(component.emitted('updateItem').pop()).toEqual([targetIndex, newValue]);
   });
 
-  it('emits onDeleteItem when user clicks on Delete button', async () => {
+  it('emits deleteItem when user clicks on Delete button', async () => {
     const user = userEvent.setup();
     const indexOfItemToDelete = 1;
     const component = render(ArrayProperty, {
@@ -113,12 +113,12 @@ describe('ArrayProperty Component', () => {
 
     await user.click(deleteItemButton);
 
-    expect(component.emitted('onDeleteItem')).toBeTruthy();
-    expect(component.emitted('onDeleteItem').length).toBe(1);
-    expect(component.emitted('onDeleteItem')[0]).toEqual([indexOfItemToDelete]);
+    expect(component.emitted('deleteItem')).toBeTruthy();
+    expect(component.emitted('deleteItem').length).toBe(1);
+    expect(component.emitted('deleteItem')[0]).toEqual([indexOfItemToDelete]);
   });
 
-  it('emits onDeleteAllItems when clicking on Delete All button', async () => {
+  it('emits deleteAllItems when clicking on Delete All button', async () => {
     const user = userEvent.setup();
     const component = render(ArrayProperty, {
       props: {
@@ -130,7 +130,7 @@ describe('ArrayProperty Component', () => {
     const deleteAllButton = component.getByTestId('delete-all-button');
     await user.click(deleteAllButton);
 
-    expect(component.emitted('onDeleteAllItems')).toBeTruthy();
-    expect(component.emitted('onDeleteAllItems').length).toBe(1);
+    expect(component.emitted('deleteAllItems')).toBeTruthy();
+    expect(component.emitted('deleteAllItems').length).toBe(1);
   });
 });
