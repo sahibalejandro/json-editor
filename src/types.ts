@@ -2,9 +2,11 @@ export interface Schema {
   [key: string]: Property;
 }
 
+type PropertyType = 'array' | 'number' | 'schema' | 'string' | 'text';
+
 export interface Property {
-  type: 'array' | 'number' | 'schema' | 'string';
   schema?: Schema;
+  type: PropertyType;
   schemaName?: string;
 }
 
