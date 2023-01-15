@@ -49,8 +49,10 @@ describe('ArrayProperty Component', () => {
     await user.type(newItemInput, 'some value');
     await user.keyboard('[Enter]');
 
-    expect(component.emitted('addItem').length, 'Emit addItem').toBe(1);
-    expect(component.emitted('addItem')[0], 'Emit correct value').toEqual(['some value']);
+    const emittedAddItemEvent = component.emitted('addItem');
+
+    expect(emittedAddItemEvent.length, 'Emit addItem').toBe(1);
+    expect(emittedAddItemEvent[0], 'Emit correct value').toEqual(['some value']);
   });
 
   it('does not emit addItem when Enter key is pressed and the New Item Input is empty', async () => {
@@ -61,7 +63,9 @@ describe('ArrayProperty Component', () => {
     await user.click(newItemInput);
     await user.keyboard('[Enter]');
 
-    expect(component.emitted('addItem')).toBeFalsy();
+    const emittedAddItemEvent = component.emitted('addItem');
+
+    expect(emittedAddItemEvent).toBeFalsy();
   });
 
   it('clears New Item Input after adding an item', async () => {
@@ -93,11 +97,13 @@ describe('ArrayProperty Component', () => {
     await user.click(itemInput);
     await user.keyboard(newValue);
 
-    expect(component.emitted('updateItem')).toBeTruthy();
+    const emittedUpdateItemEvent = component.emitted('updateItem');
+
+    expect(emittedUpdateItemEvent).toBeTruthy();
     // Number of events must match the number of typed letters
-    expect(component.emitted('updateItem').length).toBe(newValue.length);
+    expect(emittedUpdateItemEvent.length).toBe(newValue.length);
     // Last event must have received the target index and the full new value
-    expect(component.emitted('updateItem').pop()).toEqual([targetIndex, newValue]);
+    expect(emittedUpdateItemEvent.pop()).toEqual([targetIndex, newValue]);
   });
 
   it('emits deleteItem when user clicks on Delete button', async () => {
@@ -113,9 +119,11 @@ describe('ArrayProperty Component', () => {
 
     await user.click(deleteItemButton);
 
-    expect(component.emitted('deleteItem')).toBeTruthy();
-    expect(component.emitted('deleteItem').length).toBe(1);
-    expect(component.emitted('deleteItem')[0]).toEqual([indexOfItemToDelete]);
+    const emittedDeleteItemEvent = component.emitted('deleteItem');
+
+    expect(emittedDeleteItemEvent).toBeTruthy();
+    expect(emittedDeleteItemEvent.length).toBe(1);
+    expect(emittedDeleteItemEvent[0]).toEqual([indexOfItemToDelete]);
   });
 
   it('emits deleteAllItems when clicking on Delete All button', async () => {
@@ -130,7 +138,9 @@ describe('ArrayProperty Component', () => {
     const deleteAllButton = component.getByTestId('delete-all-button');
     await user.click(deleteAllButton);
 
-    expect(component.emitted('deleteAllItems')).toBeTruthy();
-    expect(component.emitted('deleteAllItems').length).toBe(1);
+    const emittedDeleteAllItemsEvent = component.emitted('deleteAllItems');
+
+    expect(emittedDeleteAllItemsEvent).toBeTruthy();
+    expect(emittedDeleteAllItemsEvent.length).toBe(1);
   });
 });

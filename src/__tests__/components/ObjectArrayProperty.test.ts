@@ -94,8 +94,10 @@ describe('ObjectArrayProperty Component', () => {
     const deleteAllButton = component.getByTestId('delete-all-button');
     await user.click(deleteAllButton);
 
-    expect(component.emitted('deleteAllItems')).toBeTruthy();
-    expect(component.emitted('deleteAllItems').length).toBe(1);
+    const emittedDeleteAllItemsEvent = component.emitted('deleteAllItems');
+
+    expect(emittedDeleteAllItemsEvent).toBeTruthy();
+    expect(emittedDeleteAllItemsEvent.length).toBe(1);
   });
 
   it('emits setItemSchema when user clicks on Add New Item button', async () => {
@@ -105,9 +107,11 @@ describe('ObjectArrayProperty Component', () => {
 
     await user.click(addNewItemButton);
 
-    expect(component.emitted('setItemSchema')).toBeTruthy();
-    expect(component.emitted('setItemSchema').length).toBe(1);
-    expect(component.emitted('setItemSchema')[0]).toEqual([-1]);
+    const emittedSetItemSchemaEvent = component.emitted('setItemSchema');
+
+    expect(emittedSetItemSchemaEvent).toBeTruthy();
+    expect(emittedSetItemSchemaEvent.length).toBe(1);
+    expect(emittedSetItemSchemaEvent[0]).toEqual([-1]);
   });
 
   it('emits setItemSchema when user clicks on Edit Item button', async () => {
@@ -122,9 +126,11 @@ describe('ObjectArrayProperty Component', () => {
 
     await user.click(editItem1Button);
 
-    expect(component.emitted('setItemSchema')).toBeTruthy();
-    expect(component.emitted('setItemSchema').length).toBe(1);
-    expect(component.emitted('setItemSchema')[0]).toEqual([1]);
+    const emittedSetItemSchemaEvent = component.emitted('setItemSchema');
+
+    expect(emittedSetItemSchemaEvent).toBeTruthy();
+    expect(emittedSetItemSchemaEvent.length).toBe(1);
+    expect(emittedSetItemSchemaEvent[0]).toEqual([1]);
   });
 
   it('emits deleteItem when user clicks on Delete button', async () => {
@@ -139,8 +145,10 @@ describe('ObjectArrayProperty Component', () => {
 
     await user.click(item1DeleteButton);
 
-    expect(component.emitted('deleteItem')).toBeTruthy();
-    expect(component.emitted('deleteItem').length).toBe(1);
-    expect(component.emitted('deleteItem')[0]).toEqual([1]);
+    const emittedDeleteItemEvent = component.emitted('deleteItem');
+
+    expect(emittedDeleteItemEvent).toBeTruthy();
+    expect(emittedDeleteItemEvent.length).toBe(1);
+    expect(emittedDeleteItemEvent[0]).toEqual([1]);
   });
 });

@@ -161,9 +161,7 @@ function handleOnUpdateProperty(key: string, value: string | number) {
 <template>
   <div>
     <template v-for="(breadcrumb, index) in breadcrumbs">
-      <a href="#" @click.prevent="backTo(breadcrumb.index)">
-        {{ breadcrumb.key }}
-      </a>
+      <a href="#" @click.prevent="backTo(breadcrumb.index)">{{ breadcrumb.key }}</a>
       <span v-if="index < (breadcrumbs.length - 1)"> / </span>
     </template>
   </div>
@@ -202,7 +200,8 @@ function handleOnUpdateProperty(key: string, value: string | number) {
     />
 
     <SchemaProperty v-if="property.type === 'schema'"
-      :property="property" @pushToPath="handlePushToPath(key as string)"
+      :property="property"
+      @pushToPath="handlePushToPath(key as string)"
     />
   </div>
 
