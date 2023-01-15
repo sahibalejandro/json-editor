@@ -7,7 +7,7 @@ export interface Props {
 } 
 
 interface Emits {
-  (event: 'onUpdate', value: string | number): void;
+  (event: 'input', value: string | number): void;
 }
 
 const emit = defineEmits<Emits>();
@@ -27,7 +27,7 @@ function handleInput(event: Event) {
     value = Number(value);
   }
 
-  emit('onUpdate', value);
+  emit('input', value);
 }
 </script>
 
@@ -37,5 +37,5 @@ function handleInput(event: Event) {
     :value="props.value"
     @input="handleInput"
     :type="inputType[props.property.type]"
-  >
+  />
 </template>

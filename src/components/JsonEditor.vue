@@ -177,7 +177,7 @@ function handleOnUpdateProperty(key: string, value: string | number) {
     <SingleValueProperty v-if="property.type === 'string' || property.type === 'number'"
       :property="property"
       :value="getDataValueFor(key as string, '')"
-      @on-update="(value) => handleOnUpdateProperty(key as string, value)"
+      @input="(value) => handleOnUpdateProperty(key as string, value)"
     />
 
     <TextProperty v-if="property.type === 'text'"

@@ -23,21 +23,21 @@ describe('SingleValueProperty Component', () => {
     expect((input as HTMLInputElement).value).toBe('some value');
   });
 
-  it('emits onUpdate when input type "text" value changes', async () => {
+  it('emits input event when input type "text" value changes', async () => {
     const user = userEvent.setup();
     const component = render(SingleValueProperty, { props: { ...baseProps } });
     const input = component.getByTestId('input');
     const newValue = 'some value';
 
     await user.type(input, newValue);
-    const onUpdate = component.emitted('onUpdate');
+    const emittedInputEvent = component.emitted('input');
 
-    expect(onUpdate).toBeTruthy();
-    expect(onUpdate.length).toBe(newValue.length);
-    expect(onUpdate[onUpdate.length - 1]).toEqual(['some value']);
+    expect(emittedInputEvent).toBeTruthy();
+    expect(emittedInputEvent.length).toBe(newValue.length);
+    expect(emittedInputEvent[emittedInputEvent.length - 1]).toEqual(['some value']);
   });
 
-  it('emits onUpdate when input type "number" value changes', async () => {
+  it('emits input event when input type "number" value changes', async () => {
     const user = userEvent.setup();
     const component = render(SingleValueProperty, {
       props: {
@@ -49,11 +49,11 @@ describe('SingleValueProperty Component', () => {
     const newValue = 50;
 
     await user.type(input, newValue.toString());
-    const onUpdate = component.emitted('onUpdate');
+    const emittedInputEvent = component.emitted('input');
 
-    expect(onUpdate).toBeTruthy();
-    expect(onUpdate.length).toBe(2);
-    expect(onUpdate[onUpdate.length - 1]).toEqual([50]);
+    expect(emittedInputEvent).toBeTruthy();
+    expect(emittedInputEvent.length).toBe(2);
+    expect(emittedInputEvent[emittedInputEvent.length - 1]).toEqual([50]);
   });
 
   it('set input type to number', () => {
