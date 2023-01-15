@@ -5,14 +5,14 @@
   <div v-for="(_item, index) in props.array">
     <button
       type="button"
-      @click="$emit('onSetItemSchema', index)"
+      @click="$emit('setItemSchema', index)"
       :data-testid="`item-${index}-edit-button`"
     >
       Edit {{ props.property.schemaName }} #{{ index + 1 }}
     </button>
     <button
       type="button"
-      @click="$emit('onDeleteItem', index)"
+      @click="$emit('deleteItem', index)"
       :data-testid="`item-${index}-delete-button`"
     >
       &times;
@@ -23,7 +23,7 @@
     type="button"
     v-if="props.array.length > 0"
     data-testid="delete-all-button"
-    @click="$emit('onDeleteAllItems')"
+    @click="$emit('deleteAllItems')"
   >
     Delete all
   </button>
@@ -31,7 +31,7 @@
   <button
     type="button"
     data-testid="add-new-item-button"
-    @click="$emit('onSetItemSchema', -1)"
+    @click="$emit('setItemSchema', -1)"
   >
     Add new {{ props.property.schemaName }}
   </button>
@@ -41,9 +41,9 @@
 import { Property } from '../types';
 
 interface Emits {
-  (event: 'onDeleteAllItems'): void;
-  (event: 'onDeleteItem', index: number): void;
-  (event: 'onSetItemSchema', index: number): void;
+  (event: 'deleteAllItems'): void;
+  (event: 'deleteItem', index: number): void;
+  (event: 'setItemSchema', index: number): void;
 }
 
 interface Props {

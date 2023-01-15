@@ -82,7 +82,7 @@ describe('ObjectArrayProperty Component', () => {
     expect(component.getByTestId('delete-all-button')).toBeTruthy();
   });
 
-  it('emits onDeleteAllItems when clicking on Delete All button', async () => {
+  it('emits deleteAllItems when clicking on Delete All button', async () => {
     const user = userEvent.setup();
     const component = render(ObjectArrayProperty, {
       props: {
@@ -94,23 +94,23 @@ describe('ObjectArrayProperty Component', () => {
     const deleteAllButton = component.getByTestId('delete-all-button');
     await user.click(deleteAllButton);
 
-    expect(component.emitted('onDeleteAllItems')).toBeTruthy();
-    expect(component.emitted('onDeleteAllItems').length).toBe(1);
+    expect(component.emitted('deleteAllItems')).toBeTruthy();
+    expect(component.emitted('deleteAllItems').length).toBe(1);
   });
 
-  it('emits onSetItemSchema when user clicks on Add New Item button', async () => {
+  it('emits setItemSchema when user clicks on Add New Item button', async () => {
     const user = userEvent.setup();
     const component = render(ObjectArrayProperty, { props: { ...baseProps } });
     const addNewItemButton = component.getByTestId('add-new-item-button');
 
     await user.click(addNewItemButton);
 
-    expect(component.emitted('onSetItemSchema')).toBeTruthy();
-    expect(component.emitted('onSetItemSchema').length).toBe(1);
-    expect(component.emitted('onSetItemSchema')[0]).toEqual([-1]);
+    expect(component.emitted('setItemSchema')).toBeTruthy();
+    expect(component.emitted('setItemSchema').length).toBe(1);
+    expect(component.emitted('setItemSchema')[0]).toEqual([-1]);
   });
 
-  it('emits onSetItemSchema when user clicks on Edit Item button', async () => {
+  it('emits setItemSchema when user clicks on Edit Item button', async () => {
     const user = userEvent.setup();
     const component = render(ObjectArrayProperty, {
       props: {
@@ -122,12 +122,12 @@ describe('ObjectArrayProperty Component', () => {
 
     await user.click(editItem1Button);
 
-    expect(component.emitted('onSetItemSchema')).toBeTruthy();
-    expect(component.emitted('onSetItemSchema').length).toBe(1);
-    expect(component.emitted('onSetItemSchema')[0]).toEqual([1]);
+    expect(component.emitted('setItemSchema')).toBeTruthy();
+    expect(component.emitted('setItemSchema').length).toBe(1);
+    expect(component.emitted('setItemSchema')[0]).toEqual([1]);
   });
 
-  it('emits onDeleteItem when user clicks on Delete button', async () => {
+  it('emits deleteItem when user clicks on Delete button', async () => {
     const user = userEvent.setup();
     const component = render(ObjectArrayProperty, {
       props: {
@@ -139,8 +139,8 @@ describe('ObjectArrayProperty Component', () => {
 
     await user.click(item1DeleteButton);
 
-    expect(component.emitted('onDeleteItem')).toBeTruthy();
-    expect(component.emitted('onDeleteItem').length).toBe(1);
-    expect(component.emitted('onDeleteItem')[0]).toEqual([1]);
+    expect(component.emitted('deleteItem')).toBeTruthy();
+    expect(component.emitted('deleteItem').length).toBe(1);
+    expect(component.emitted('deleteItem')[0]).toEqual([1]);
   });
 });
