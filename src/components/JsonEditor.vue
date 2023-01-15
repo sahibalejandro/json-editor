@@ -182,7 +182,7 @@ function handleOnUpdateProperty(key: string, value: string | number) {
 
     <TextProperty v-if="property.type === 'text'"
       :value="getDataValueFor(key as string, '')"
-      @on-input="(value) => handleOnUpdateProperty(key as string, value)"
+      @input="(value) => handleOnUpdateProperty(key as string, value)"
     />
 
     <ArrayProperty v-if="isArrayOfPrimitives(property)"

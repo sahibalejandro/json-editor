@@ -16,7 +16,7 @@ describe('TextProperty Component', () => {
     expect((textarea as HTMLTextAreaElement).value).toBe('foo bar');
   });
 
-  it('emits onInput when textarea value changes', async () => {
+  it('emits input event when textarea value changes', async () => {
     const user = userEvent.setup();
     const component = render(TextProperty, {
       props: {
@@ -26,10 +26,10 @@ describe('TextProperty Component', () => {
     const textarea = component.getByTestId('textarea');
 
     await user.type(textarea, 'foo bar');
-    const onInput = component.emitted('onInput');
+    const emittedInputEvent = component.emitted('input');
 
-    expect(onInput).toBeTruthy();
-    expect(onInput.length).toBe('foo bar'.length);
-    expect(onInput[onInput.length -1]).toEqual(['foo bar']);
+    expect(emittedInputEvent).toBeTruthy();
+    expect(emittedInputEvent.length).toBe('foo bar'.length);
+    expect(emittedInputEvent[emittedInputEvent.length -1]).toEqual(['foo bar']);
   });
 });

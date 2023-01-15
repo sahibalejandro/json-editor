@@ -4,7 +4,7 @@ interface Props {
 };
 
 interface Emits {
-  (event: 'onInput', value: string): void;
+  (event: 'input', value: string): void;
 }
 
 defineEmits<Emits>();
@@ -17,6 +17,6 @@ const props = defineProps<Props>();
     rows="10"
     :value="props.value"
     data-testid="textarea"
-    @input="$emit('onInput', ($event.target as HTMLTextAreaElement).value)"
+    @input="$emit('input', ($event.target as HTMLTextAreaElement).value)"
   />
 </template>
