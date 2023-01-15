@@ -1,12 +1,12 @@
 <template>
-  <button type="button" @click="emit('onPushToPath')">Edit {{ property.schemaName }}</button>
+  <button type="button" @click="emit('pushToPath')">Edit {{ property.schemaName }}</button>
 </template>
 
 <script setup lang="ts">
 import type { Property } from '../types';
 
 interface Emits {
-  (event: 'onPushToPath'): void;
+  (event: 'pushToPath'): void;
 }
 
 interface Props {

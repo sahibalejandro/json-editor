@@ -202,7 +202,7 @@ function handleOnUpdateProperty(key: string, value: string | number) {
     />
 
     <SchemaProperty v-if="property.type === 'schema'"
-      :property="property" @onPushToPath="handlePushToPath(key as string)"
+      :property="property" @pushToPath="handlePushToPath(key as string)"
     />
   </div>
 
