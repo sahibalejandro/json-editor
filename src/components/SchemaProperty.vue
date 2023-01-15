@@ -1,5 +1,7 @@
 <template>
-  <button type="button" @click="emit('pushToPath')">Edit {{ property.schemaName }}</button>
+  <button type="button" @click="$emit('pushToPath')" data-testid="button">
+    Edit {{ property.schemaName }}
+  </button>
 </template>
 
 <script setup lang="ts">
@@ -13,6 +15,6 @@ interface Props {
   property: Property;
 }
 
-const emit = defineEmits<Emits>();
+defineEmits<Emits>();
 defineProps<Props>();
 </script>
